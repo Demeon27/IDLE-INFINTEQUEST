@@ -1,0 +1,925 @@
+.layered-sprite-wrapper {
+    display: inline-block;
+}
+
+.layered-sprite {
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+
+/* === SKELETAL SYSTEM (10 PIECES) === */
+.bone-root {
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+
+.bone {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.bone-torso {
+    /* Pivot: milieu hanches (32, 36) → 50% 56% */
+    transform-origin: 50% 56%;
+    z-index: 20;
+}
+
+.bone-head {
+    /* Pivot: base du cou (31, 18) → 48% 28% */
+    transform-origin: 48% 28%;
+}
+
+.bone-armL-upper {
+    /* Pivot: épaule gauche (25, 22) → 39% 34% */
+    transform-origin: 39% 34%;
+    z-index: -10;
+}
+
+.bone-armL-lower {
+    /* Pivot: coude gauche (24, 30) → 37% 47% */
+    transform-origin: 37% 47%;
+}
+
+.bone-armR-upper {
+    /* Pivot: épaule droite (38, 22) → 59% 34% */
+    transform-origin: 59% 34%;
+    z-index: 30;
+}
+
+.bone-armR-lower {
+    /* Pivot: coude droit (38, 30) → 59% 47% */
+    transform-origin: 59% 47%;
+}
+
+.bone-legL-thigh {
+    /* Pivot: hanche gauche (29, 36) → 45% 56% */
+    transform-origin: 45% 56%;
+    z-index: 10;
+}
+
+.bone-legL-calf {
+    /* Pivot: genou gauche (28, 44) → 44% 69% */
+    transform-origin: 44% 69%;
+}
+
+.bone-legR-thigh {
+    /* Pivot: hanche droite (34, 36) → 53% 56% */
+    transform-origin: 53% 56%;
+    z-index: 30;
+}
+
+.bone-legR-calf {
+    /* Pivot: genou droit (35, 44) → 55% 69% */
+    transform-origin: 55% 69%;
+}
+
+/* ====== LES IMAGES DES CALQUES ====== */
+.layered-sprite__layer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 64px;
+    height: 64px;
+    image-rendering: pixelated;
+    object-fit: contain;
+}
+
+.layered-sprite__layer.placeholder {
+    width: 32px;
+    height: 48px;
+    background-color: var(--mystic);
+    border-radius: 4px;
+    bottom: 0;
+    left: 16px;
+    opacity: 0.3;
+}
+
+
+/* ====== ANIMATIONS SQUELETTIQUES ====== */
+
+/* --- IDLE (Respiration vivante + balancement) --- */
+.layered-sprite--idle .bone-torso {
+    animation: idle-torso 2.8s infinite ease-in-out;
+}
+
+.layered-sprite--idle .bone-head {
+    animation: idle-head 2.8s infinite ease-in-out;
+}
+
+.layered-sprite--idle .bone-armL-upper {
+    animation: idle-armL-up 3.2s infinite ease-in-out;
+}
+
+.layered-sprite--idle .bone-armL-lower {
+    animation: idle-armL-low 3.2s 0.1s infinite ease-in-out;
+}
+
+.layered-sprite--idle .bone-armR-upper {
+    animation: idle-armR-up 3.2s 0.5s infinite ease-in-out;
+}
+
+.layered-sprite--idle .bone-armR-lower {
+    animation: idle-armR-low 3.2s 0.6s infinite ease-in-out;
+}
+
+.layered-sprite--idle .bone-legL-thigh {
+    animation: idle-legL-thigh 2.8s infinite ease-in-out;
+}
+
+.layered-sprite--idle .bone-legL-calf {
+    animation: idle-legL-calf 2.8s 0.15s infinite ease-in-out;
+}
+
+.layered-sprite--idle .bone-legR-thigh {
+    animation: idle-legR-thigh 2.8s 0.4s infinite ease-in-out;
+}
+
+.layered-sprite--idle .bone-legR-calf {
+    animation: idle-legR-calf 2.8s 0.55s infinite ease-in-out;
+}
+
+@keyframes idle-torso {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    35% {
+        transform: translateY(1.5px) rotate(0.5deg);
+    }
+
+    65% {
+        transform: translateY(2px) rotate(-0.5deg);
+    }
+}
+
+@keyframes idle-head {
+
+    0%,
+    100% {
+        transform: rotate(0deg) translateY(0);
+    }
+
+    30% {
+        transform: rotate(3deg) translateY(1px);
+    }
+
+    70% {
+        transform: rotate(-1deg) translateY(1.5px);
+    }
+}
+
+@keyframes idle-armL-up {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    40% {
+        transform: rotate(10deg);
+    }
+
+    80% {
+        transform: rotate(-3deg);
+    }
+}
+
+@keyframes idle-armL-low {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    40% {
+        transform: rotate(8deg);
+    }
+
+    80% {
+        transform: rotate(-2deg);
+    }
+}
+
+@keyframes idle-armR-up {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    40% {
+        transform: rotate(-10deg);
+    }
+
+    80% {
+        transform: rotate(3deg);
+    }
+}
+
+@keyframes idle-armR-low {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    40% {
+        transform: rotate(-8deg);
+    }
+
+    80% {
+        transform: rotate(2deg);
+    }
+}
+
+@keyframes idle-legL-thigh {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(4deg);
+    }
+}
+
+@keyframes idle-legL-calf {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-5deg);
+    }
+}
+
+@keyframes idle-legR-thigh {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-4deg);
+    }
+}
+
+@keyframes idle-legR-calf {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(5deg);
+    }
+}
+
+
+/* --- ATTACK (Coup d'épée DRAMATIQUE — Windup → Slash → Recovery) --- */
+.layered-sprite--attack .bone-torso {
+    animation: atk-torso 0.45s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+}
+
+.layered-sprite--attack .bone-head {
+    animation: atk-head 0.45s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+}
+
+.layered-sprite--attack .bone-armR-upper {
+    animation: atk-armR-up 0.45s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+}
+
+.layered-sprite--attack .bone-armR-lower {
+    animation: atk-armR-low 0.45s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+}
+
+.layered-sprite--attack .bone-armL-upper {
+    animation: atk-armL-up 0.45s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+}
+
+.layered-sprite--attack .bone-armL-lower {
+    animation: atk-armL-low 0.45s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+}
+
+.layered-sprite--attack .bone-legR-thigh {
+    animation: atk-legR-thigh 0.45s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+}
+
+.layered-sprite--attack .bone-legR-calf {
+    animation: atk-legR-calf 0.45s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+}
+
+.layered-sprite--attack .bone-legL-thigh {
+    animation: atk-legL-thigh 0.45s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+}
+
+.layered-sprite--attack .bone-legL-calf {
+    animation: atk-legL-calf 0.45s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+}
+
+/* Torso: rotation avant puissante + translation vers l'ennemi */
+@keyframes atk-torso {
+    0% {
+        transform: rotate(0deg) translateX(0);
+    }
+
+    20% {
+        transform: rotate(-8deg) translateX(-6px);
+    }
+
+    /* Windup: recul */
+    50% {
+        transform: rotate(20deg) translateX(12px);
+    }
+
+    /* SLASH: lunge ! */
+    80% {
+        transform: rotate(5deg) translateX(4px);
+    }
+
+    /* Overshoot */
+    100% {
+        transform: rotate(0deg) translateX(0);
+    }
+}
+
+@keyframes atk-head {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    20% {
+        transform: rotate(8deg);
+    }
+
+    /* Regarde en arrière pendant windup */
+    50% {
+        transform: rotate(-18deg);
+    }
+
+    /* Tête suit la frappe */
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* Bras attaquant: arc dramatique arrière → avant */
+@keyframes atk-armR-up {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    20% {
+        transform: rotate(-100deg);
+    }
+
+    /* Lève le bras LOIN en arrière */
+    50% {
+        transform: rotate(110deg);
+    }
+
+    /* SLASH: vers l'avant avec puissance */
+    80% {
+        transform: rotate(30deg);
+    }
+
+    /* Overshoot */
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes atk-armR-low {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    20% {
+        transform: rotate(-55deg);
+    }
+
+    /* Coude se plie en arrière */
+    50% {
+        transform: rotate(30deg);
+    }
+
+    /* Extension de la frappe */
+    80% {
+        transform: rotate(10deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* Bras équilibre: recul pour contrebalancer */
+@keyframes atk-armL-up {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    30% {
+        transform: rotate(15deg);
+    }
+
+    /* Bras recule pour équilibrer */
+    50% {
+        transform: rotate(-50deg) translateX(-5px);
+    }
+
+    /* Balance arrière */
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes atk-armL-low {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-30deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* Jambes: fente dynamique (lunge) */
+@keyframes atk-legR-thigh {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(30deg);
+    }
+
+    /* Jambe avant: fente profonde */
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes atk-legR-calf {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-15deg);
+    }
+
+    /* Mollet suit la fente */
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes atk-legL-thigh {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-30deg);
+    }
+
+    /* Jambe arrière s'écarte */
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes atk-legL-calf {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(25deg);
+    }
+
+    /* Mollet arrière pousse */
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* ============================================================
+   ATTACK-SWORD — Grand coup d'épée (overhead slash)
+   Le bras d'arme fait un arc complet par-dessus la tête
+   puis slash vers le bas avec puissance.
+   0.5s — 4 phases: Prépa → Levée → SLASH → Recovery
+   ============================================================ */
+.layered-sprite--attack-sword .bone-torso {
+    animation: sword-torso 0.5s cubic-bezier(0.1, 0, 0.2, 1) forwards;
+}
+
+.layered-sprite--attack-sword .bone-head {
+    animation: sword-head 0.5s cubic-bezier(0.1, 0, 0.2, 1) forwards;
+}
+
+.layered-sprite--attack-sword .bone-armR-upper {
+    animation: sword-armR-up 0.5s cubic-bezier(0.1, 0, 0.3, 1) forwards;
+}
+
+.layered-sprite--attack-sword .bone-armR-lower {
+    animation: sword-armR-low 0.5s cubic-bezier(0.1, 0, 0.3, 1) forwards;
+}
+
+.layered-sprite--attack-sword .bone-armL-upper {
+    animation: sword-armL-up 0.5s cubic-bezier(0.1, 0, 0.2, 1) forwards;
+}
+
+.layered-sprite--attack-sword .bone-armL-lower {
+    animation: sword-armL-low 0.5s cubic-bezier(0.1, 0, 0.2, 1) forwards;
+}
+
+.layered-sprite--attack-sword .bone-legR-thigh {
+    animation: sword-legR-thigh 0.5s cubic-bezier(0.1, 0, 0.2, 1) forwards;
+}
+
+.layered-sprite--attack-sword .bone-legR-calf {
+    animation: sword-legR-calf 0.5s cubic-bezier(0.1, 0, 0.2, 1) forwards;
+}
+
+.layered-sprite--attack-sword .bone-legL-thigh {
+    animation: sword-legL-thigh 0.5s cubic-bezier(0.1, 0, 0.2, 1) forwards;
+}
+
+.layered-sprite--attack-sword .bone-legL-calf {
+    animation: sword-legL-calf 0.5s cubic-bezier(0.1, 0, 0.2, 1) forwards;
+}
+
+/* Torso: penche en arrière pour le windup, puis balance en avant avec le slash */
+@keyframes sword-torso {
+    0% {
+        transform: rotate(0deg) translateX(0);
+    }
+
+    15% {
+        transform: rotate(-15deg) translateX(-4px);
+    }
+
+    /* Penche en arrière, prend de l'élan */
+    40% {
+        transform: rotate(-20deg) translateX(-6px);
+    }
+
+    /* Maximum du windup */
+    60% {
+        transform: rotate(25deg) translateX(14px);
+    }
+
+    /* SLASH ! Corps en avant */
+    80% {
+        transform: rotate(10deg) translateX(6px);
+    }
+
+    /* Overshoot */
+    100% {
+        transform: rotate(0deg) translateX(0);
+    }
+}
+
+/* Tête: regarde en haut pendant le windup, suit le slash vers le bas */
+@keyframes sword-head {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    15% {
+        transform: rotate(10deg);
+    }
+
+    /* Regarde en haut-arrière */
+    40% {
+        transform: rotate(12deg);
+    }
+
+    /* Tête en arrière pendant windup */
+    60% {
+        transform: rotate(-22deg);
+    }
+
+    /* SLASH: tête suit le mouvement vers le bas */
+    80% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* BRAS DROIT (bras d'épée): arc COMPLET par-dessus la tête → slash diagonal */
+@keyframes sword-armR-up {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    15% {
+        transform: rotate(-60deg);
+    }
+
+    /* Prépare: bras part en arrière */
+    40% {
+        transform: rotate(-160deg);
+    }
+
+    /* Bras MAXIMUM en arrière, épée au-dessus de la tête */
+    60% {
+        transform: rotate(120deg);
+    }
+
+    /* SLASH PUISSANT vers le bas-avant ! */
+    75% {
+        transform: rotate(60deg);
+    }
+
+    /* Suit le mouvement */
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes sword-armR-low {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    15% {
+        transform: rotate(-30deg);
+    }
+
+    /* Coude se plie en arrière */
+    40% {
+        transform: rotate(-60deg);
+    }
+
+    /* Coude fléchi max */
+    60% {
+        transform: rotate(40deg);
+    }
+
+    /* Extension : bras droit dans le slash */
+    75% {
+        transform: rotate(20deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* BRAS GAUCHE: bras d'équilibre, reste en arrière pour contrebalancer */
+@keyframes sword-armL-up {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    40% {
+        transform: rotate(20deg);
+    }
+
+    /* Bras en arrière pour l'équilibre */
+    60% {
+        transform: rotate(-40deg) translateX(-4px);
+    }
+
+    /* Balance en arrière pendant le slash */
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes sword-armL-low {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    40% {
+        transform: rotate(15deg);
+    }
+
+    60% {
+        transform: rotate(-25deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* JAMBE DROITE (avant): fente profonde */
+@keyframes sword-legR-thigh {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    40% {
+        transform: rotate(-10deg);
+    }
+
+    /* Recule pendant windup */
+    60% {
+        transform: rotate(35deg);
+    }
+
+    /* Fente avant profonde avec le slash */
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes sword-legR-calf {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    60% {
+        transform: rotate(-20deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* JAMBE GAUCHE (arrière): pousse avec force */
+@keyframes sword-legL-thigh {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    40% {
+        transform: rotate(10deg);
+    }
+
+    /* Prépare la poussée */
+    60% {
+        transform: rotate(-35deg);
+    }
+
+    /* Pousse ! écarte jambe arrière */
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes sword-legL-calf {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    60% {
+        transform: rotate(30deg);
+    }
+
+    /* Mollet pousse contre le sol */
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.layered-sprite--hit {
+    filter: drop-shadow(0 0 6px rgba(255, 50, 50, 0.8)) brightness(1.5) sepia(0.5);
+}
+
+.layered-sprite--hit .bone-torso {
+    animation: hit-torso 0.35s ease-out;
+}
+
+.layered-sprite--hit .bone-head {
+    animation: hit-head 0.35s ease-out;
+}
+
+.layered-sprite--hit .bone-armR-upper {
+    animation: hit-arms-fling 0.35s ease-out;
+}
+
+.layered-sprite--hit .bone-armL-upper {
+    animation: hit-arms-fling-mirror 0.35s ease-out;
+}
+
+.layered-sprite--hit .bone-legL-thigh {
+    animation: hit-stumble 0.35s ease-out;
+}
+
+@keyframes hit-torso {
+    0% {
+        transform: rotate(0deg) translateX(0);
+    }
+
+    25% {
+        transform: rotate(-15deg) translateX(-10px);
+    }
+
+    /* Recul violent */
+    60% {
+        transform: rotate(3deg) translateX(-2px);
+    }
+
+    100% {
+        transform: rotate(0deg) translateX(0);
+    }
+}
+
+@keyframes hit-head {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    20% {
+        transform: rotate(25deg);
+    }
+
+    /* Tête rejet en arrière */
+    60% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes hit-arms-fling {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-35deg);
+    }
+
+    /* Bras projeté en arrière */
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes hit-arms-fling-mirror {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(30deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes hit-stumble {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-10deg);
+    }
+
+    /* Jambe recule */
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* --- DEATH --- */
+.layered-sprite--dead {
+    filter: grayscale(1) brightness(0.5);
+}
+
+.layered-sprite--dead .bone-root {
+    animation: dead-collapse 1s forwards ease-in;
+}
+
+@keyframes dead-collapse {
+    0% {
+        transform: rotate(0) translateY(0);
+    }
+
+    100% {
+        transform: rotate(-90deg) translateY(20px);
+        opacity: 0;
+    }
+}

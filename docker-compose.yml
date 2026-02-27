@@ -1,0 +1,114 @@
+# ============================================================
+# IDLE Infinite Quest V2 — Docker Compose
+# Dev = Prod : même environnement partout
+# ============================================================
+
+services:
+  # ---- PostgreSQL ----
+  postgres:
+    image: postgres:17-alpine
+    container_name: idle-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: idle_user
+      POSTGRES_PASSWORD: idle_password
+      POSTGRES_DB: idle_quest
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U idle_user -d idle_quest"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ---- Redis (Cache, Sessions, Files d'attente) ----
+  redis:
+    image: redis:7-alpine
+    container_name: idle-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ---- MinIO (Stockage S3 auto-hébergé pour les sprites UGC) ----
+  minio:
+    image: minio/minio:latest
+    container_name: idle-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: idle_minio_access
+      MINIO_ROOT_PASSWORD: idle_minio_secret
+    ports:
+      - "9000:9000"   # API S3
+      - "9001:9001"   # Console web MinIO
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---- Backend NestJS ----
+  server:
+    build:
+      context: .
+      dockerfile: packages/server/Dockerfile
+    container_name: idle-server
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://idle_user:idle_password@postgres:5432/idle_quest?schema=public"
+      JWT_SECRET: "idle-quest-dev-secret-CHANGE-ME-IN-PRODUCTION"
+      PORT: 3000
+      NODE_ENV: development
+      CLIENT_URL: "http://localhost:5173"
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      MINIO_ENDPOINT: minio
+      MINIO_PORT: 9000
+      MINIO_ACCESS_KEY: idle_minio_access
+      MINIO_SECRET_KEY: idle_minio_secret
+      MINIO_BUCKET: sprites
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./packages/server/src:/app/packages/server/src
+      - ./packages/shared/src:/app/packages/shared/src
+
+  # ---- Frontend Vite + React ----
+  client:
+    build:
+      context: .
+      dockerfile: packages/client/Dockerfile
+    container_name: idle-client
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: "http://localhost:3000"
+      VITE_WS_URL: "http://localhost:3000"
+    volumes:
+      - ./packages/client/src:/app/packages/client/src
+      - ./packages/shared/src:/app/packages/shared/src
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  minio_data:
+    driver: local

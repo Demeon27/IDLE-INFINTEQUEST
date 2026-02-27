@@ -1,6 +1,6 @@
-# ⚔️ IDLE Infinite Quest V2
+# ⚔️ IDLE Infinite Quest
 
-Bienvenue dans le dépôt officiel de **IDLE Infinite Quest V2**, un ambitieux projet de jeu MMO-IDLE jouable directement depuis votre navigateur. Entièrement repensé depuis sa version précédente (V1 sur Discord), ce jeu propose une véritable architecture temps-réel, des visuels rétro (Pixel Art) et un système communautaire fort guidé par du contenu généré par les utilisateurs (UGC).
+Bienvenue dans le dépôt officiel de **IDLE Infinite Quest (V2)**, un ambitieux projet de jeu MMO-IDLE jouable directement depuis votre navigateur. Entièrement repensé depuis sa version précédente (V1 sur Discord), ce jeu propose une véritable architecture temps-réel, des visuels rétro (Pixel Art) et un système communautaire fort guidé par du contenu généré par les utilisateurs (UGC).
 
 ---
 

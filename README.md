@@ -8,7 +8,7 @@ Bienvenue dans le dépôt officiel de **IDLE Infinite Quest V2**, un ambitieux p
 
 - **Boucle de Jeu Côté Serveur (Server-Authoritative)** : Tous les combats, l'expérience (XP), le loot et l'économie tournent en temps réel de manière sécurisée sur le serveur (NestJS). Le client n'est qu'un "lecteur" visuel.
 - **Synchronisation Temps-Réel (WebSockets)** : Le GameState (santé, dégâts, esquives, coups critiques) est streamé aux joueurs en temps réel `(Socket.io)`.
-- **Visuels Côté Client (Phaser & React)** : L'arène de combat est rendue visuellement fluides via `Phaser`, animant votre personnage (généré procéduralement via sprite layers). L'interface utilisateur est construite en `React`.
+- **Visuels Côté Client (CSS Animations & React)** : L'arène de combat est rendue visuellement de manière fluide via des animations CSS natives et React, animant votre personnage (généré procéduralement via sprite layers). L'interface utilisateur complète est construite en `React`.
 - **Inventaire et Boutique Vivants** : Système de butin dynamique. Les objets tombés au combat sont sauvegardés en DB et synchronisent instantanément l'interface des joueurs.
 - **The Workshop (UGC)** : Les joueurs peuvent dessiner et soumettre leurs propres équipements via le **Pixel Studio** intégré au jeu. 
 - **Modération & Administration** : Un panel de contrôle complet ("Banc des juges") permet aux Game Masters d'approuver ou rejeter le contenu UGC soumis par la communauté.
@@ -20,9 +20,8 @@ Bienvenue dans le dépôt officiel de **IDLE Infinite Quest V2**, un ambitieux p
 
 Ce projet utilise un **Monorepo (Turborepo)** divisé en dossiers `packages/client`, `packages/server`, et `packages/shared`.
 
-- **Frontend** : React 18, Vite, Zustand (State), Socket.io-client, i18next, CSS natif.
+- **Frontend** : React 18, Vite, Zustand (State), Socket.io-client, i18next, CSS natif (pour les animations de combat).
 - **Backend** : NestJS, Socket.io, Prisma (ORM), PostgreSQL.
-- **Moteur Visuel (Combat)** : Phaser.js
 - **Authentification** : JWT (JSON Web Tokens)
 - **Déploiement / Architecture** : Prévu pour Docker, Redis (pour le scaling futur des WebSockets).
 

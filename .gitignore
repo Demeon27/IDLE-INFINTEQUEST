@@ -35,3 +35,7 @@ packages/server/prisma/migrations/
 
 # MinIO data
 minio-data/
+
+# Docs privées
+PROJECT_BRAIN.md
+V2-Reboot-Architecture.md
